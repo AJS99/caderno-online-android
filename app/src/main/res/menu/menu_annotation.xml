@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.cadernonline.view.auth.AuthActivity">
+
+    <item
+        android:id="@+id/action_edit"
+        android:title="@string/edit"
+        android:icon="@drawable/ic_mode_edit"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_save"
+        android:title="@string/save"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="always"/>
+
+</menu>

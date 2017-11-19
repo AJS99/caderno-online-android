@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.cadernonline.view.auth.AuthActivity">
+
+    <item
+        android:id="@+id/action_add_image"
+        android:title="@string/add_image"
+        android:icon="@drawable/ic_image"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_add_video"
+        android:title="@string/add_video"
+        android:icon="@drawable/ic_videocam"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_add_audio"
+        android:title="@string/add_audio"
+        android:icon="@drawable/ic_audiotrack"
+        app:showAsAction="always"/>
+
+</menu>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.cadernonline.view.main.EditCourseActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/format_toolbar"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true">
+
+            <org.wordpress.aztec.AztecText
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:gravity="top|start"
+                android:hint="@string/write_your_annotation_here"
+                android:scrollbars="vertical"
+                android:imeOptions="flagNoExtractUi"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="true"/>
+
+        </ScrollView>
+
+        <org.wordpress.aztec.toolbar.AztecToolbar
+            android:id="@+id/format_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/format_bar_height"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

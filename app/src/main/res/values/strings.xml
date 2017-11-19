@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name" translatable="false">CadernOnline</string>
+
+    <string name="parse_server_url" translatable="false">https://caderno-on-line.herokuapp.com/parse</string>
+    <string name="parse_app_id" translatable="false">caderno7259</string>
+    <string name="facebook_app_id" translatable="false">707119556132405</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb707119556132405</string>
+
+    <string name="name">Nome</string>
+    <string name="login">Entrar</string>
+    <string name="login_with_facebook">Entrar com Facebook</string>
+    <string name="register">Registrar</string>
+    <string name="register_with_facebook">Registrar com Facebook</string>
+    <string name="logout">Sair</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="course">Curso</string>
+    <string name="new_course">Novo curso</string>
+    <string name="edit_course">Editar curso</string>
+    <string name="discipline">Disciplina</string>
+    <string name="new_discipline">Nova disciplina</string>
+    <string name="edit_discipline">Editar disciplina</string>
+    <string name="coordinator">Coordenador</string>
+    <string name="teacher">Professor</string>
+    <string name="description">Descrição</string>
+    <string name="save">Salvar</string>
+    <string name="annotation_saved">Anotação salva</string>
+    <string name="cancel">Cancelar</string>
+    <string name="rename">Renomear</string>
+    <string name="title">Título</string>
+    <string name="new_title">Novo título</string>
+    <string name="untitled">Sem título</string>
+    <string name="write_your_annotation_here">Escreva sua anotação aqui</string>
+    <string name="login_required">Faça login primeiro</string>
+    <string name="visualize">Visualizar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
+    <string name="add_image">Adicionar imagem</string>
+    <string name="add_video">Adicionar vídeo</string>
+    <string name="add_audio">Adicionar áudio</string>
+    <string name="take_picture">Tirar foto</string>
+    <string name="record_video">Gravar vídeo</string>
+    <string name="record_audio">Gravar áudio</string>
+    <string name="pick_from_gallery">Escolher da galeria</string>
+    <string name="loading_media">Carregando mídia...</string>
+    <string name="save_changes_before_exit">Salvar alterações antes de sair?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+    <string-array name="options">
+        <item>@string/edit</item>
+        <item>@string/delete</item>
+    </string-array>
+    <string-array name="add_image_options">
+        <item>@string/take_picture</item>
+        <item>@string/pick_from_gallery</item>
+    </string-array>
+    <string-array name="add_video_options">
+        <item>@string/record_video</item>
+        <item>@string/pick_from_gallery</item>
+    </string-array>
+    <string-array name="add_audio_options">
+        <item>@string/record_audio</item>
+        <item>@string/pick_from_gallery</item>
+    </string-array>
+</resources>
