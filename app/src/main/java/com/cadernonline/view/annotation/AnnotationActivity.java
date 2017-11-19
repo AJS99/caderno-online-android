@@ -190,6 +190,10 @@ public class AnnotationActivity extends BaseActivity implements
                 .add(new CaptionHandler(vText))
                 .install(vText);
 
+        findViewById(org.wordpress.aztec.R.id.plugin_buttons).setVisibility(View.GONE);
+        findViewById(org.wordpress.aztec.R.id.format_bar_button_html).setVisibility(View.GONE);
+        findViewById(org.wordpress.aztec.R.id.format_bar_button_link).setVisibility(View.GONE);
+
         vText.setTextColor(Color.BLACK);
         vText.fromHtml(annotation.getText());
         vText.post(() -> vText.setFocusable(false));
@@ -522,10 +526,8 @@ public class AnnotationActivity extends BaseActivity implements
     private void showConfirmExitDialog(){
         new AlertDialog.Builder(this)
                 .setMessage(R.string.save_changes_before_exit)
-                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    save(true);
-                })
-                .setNegativeButton(R.string.no, null)
+                .setPositiveButton(R.string.yes, (dialog, which) -> save(true))
+                .setNegativeButton(R.string.no, (dialog, which) -> finish())
                 .create()
                 .show();
     }
