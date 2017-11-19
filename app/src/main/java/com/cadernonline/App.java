@@ -1,7 +1,7 @@
 package com.cadernonline;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.cadernonline.model.Annotation;
 import com.cadernonline.model.Course;
@@ -13,7 +13,7 @@ import com.parse.ParseObject;
 import cafe.adriel.androidaudioconverter.AndroidAudioConverter;
 import cafe.adriel.androidaudioconverter.callback.ILoadCallback;
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     public static Context context;
 
     @Override
