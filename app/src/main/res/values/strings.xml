@@ -16,7 +16,6 @@
     <string name="password">Senha</string>
     <string name="course">Curso</string>
     <string name="new_course">Novo curso</string>
-    <string name="edit_course">Editar curso</string>
     <string name="discipline">Disciplina</string>
     <string name="new_discipline">Nova disciplina</string>
     <string name="edit_discipline">Editar disciplina</string>
@@ -26,7 +25,6 @@
     <string name="save">Salvar</string>
     <string name="annotation_saved">Anotação salva</string>
     <string name="cancel">Cancelar</string>
-    <string name="rename">Renomear</string>
     <string name="title">Título</string>
     <string name="new_title">Novo título</string>
     <string name="untitled">Sem título</string>

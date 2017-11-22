@@ -84,7 +84,9 @@ public class AuthActivity extends BaseActivity {
 
     @Subscribe
     public void onLoginEvent(LoginEvent event) {
+        showProgress();
         ParseUser.logInInBackground(event.email, event.password, (user, e) -> {
+            hideProgress();
             if(e == null) {
                 EventBus.getDefault().postSticky(new AfterLoginEvent());
                 finish();
@@ -96,12 +98,14 @@ public class AuthActivity extends BaseActivity {
 
     @Subscribe
     public void onFacebookLoginEvent(FacebookLoginEvent event) {
+        showProgress();
         ParseFacebookUtils.logInWithReadPermissionsInBackground(this, Collections.singleton("email"), (user, e) -> {
             if(e == null) {
                 GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
                     try {
                         updateFacebookInfo(object);
                     } catch (Exception e1) {
+                        hideProgress();
                         e1.printStackTrace();
                     }
                 });
@@ -110,6 +114,7 @@ public class AuthActivity extends BaseActivity {
                 request.setParameters(permissions);
                 request.executeAsync();
             } else {
+                hideProgress();
                 showError(e.getMessage());
             }
         });
@@ -117,12 +122,14 @@ public class AuthActivity extends BaseActivity {
 
     @Subscribe
     public void onRegisterEvent(final RegisterEvent event) {
+        showProgress();
         ParseUser user = new ParseUser();
         user.setEmail(event.email);
         user.setUsername(event.email);
         user.setPassword(event.password);
         user.put("name", event.name);
         user.signUpInBackground(e -> {
+            hideProgress();
             if(e == null) {
                 onLoginEvent(new LoginEvent(event.email, event.password));
             } else {
@@ -149,6 +156,7 @@ public class AuthActivity extends BaseActivity {
         user.put("name", name);
         user.put("profileImageUrl", pictureUrl);
         user.saveInBackground(e -> {
+            hideProgress();
             if(e == null){
                 EventBus.getDefault().postSticky(new AfterLoginEvent());
                 finish();

@@ -113,7 +113,6 @@ public class AnnotationActivity extends BaseActivity implements
     private VideoPicker galleryVideoPicker;
     private AudioPicker galleryAudioPicker;
     private String wavAudioPath = Environment.getExternalStorageDirectory() + "/recorded_audio.wav";
-    private String mp3AudioPath = Environment.getExternalStorageDirectory() + "/recorded_audio.mp3";
 
     public static void start(Context context, Discipline discipline, Annotation annotation) {
         Intent i = new Intent(context, AnnotationActivity.class);
