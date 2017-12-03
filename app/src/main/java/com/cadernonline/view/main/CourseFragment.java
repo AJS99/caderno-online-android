@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cadernonline.R;
+import com.cadernonline.event.FilterDisciplinesEvent;
 import com.cadernonline.event.UpdateDisciplinesWithNewCourseEvent;
 import com.cadernonline.event.UpdateDisciplinesWithOldCourseEvent;
 import com.cadernonline.model.Course;
 import com.cadernonline.model.Discipline;
 import com.cadernonline.util.DbUtil;
+import com.cadernonline.util.StringUtil;
 import com.cadernonline.view.BaseFragment;
 import com.cadernonline.view.discipline.DisciplineActivity;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
@@ -63,6 +65,11 @@ public class CourseFragment extends BaseFragment {
             showOptionsDialog(item.discipline);
             return true;
         });
+        adapter.getItemFilter().withFilterPredicate((item, constraint) -> {
+            String query = StringUtil.getSlug(constraint.toString());
+            String name = StringUtil.getSlug(item.discipline.getName());
+            return name.startsWith(query);
+        });
 
         vDisciplines.setHasFixedSize(true);
         vDisciplines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -97,6 +104,13 @@ public class CourseFragment extends BaseFragment {
         if(course != null && course.getObjectId().equals(event.course.getObjectId())) {
             EventBus.getDefault().removeStickyEvent(event);
             updateDisciplines();
+        }
+    }
+
+    @Subscribe(sticky = true)
+    public void onFilterDisciplinesEvent(FilterDisciplinesEvent event) {
+        if(adapter != null) {
+            adapter.filter(event.query);
         }
     }
 

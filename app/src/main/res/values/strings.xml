@@ -44,6 +44,7 @@
     <string name="save_changes_before_exit">Salvar alterações antes de sair?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="search">Pesquisar</string>
 
     <string-array name="options">
         <item>@string/edit</item>

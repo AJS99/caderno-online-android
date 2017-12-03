@@ -10,9 +10,4 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_auth"
-        android:title="@string/login"
-        app:showAsAction="always"/>
-
 </menu>

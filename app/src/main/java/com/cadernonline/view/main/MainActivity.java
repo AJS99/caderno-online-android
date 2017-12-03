@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ import android.view.View;
 
 import com.cadernonline.R;
 import com.cadernonline.event.AfterLoginEvent;
+import com.cadernonline.event.FilterDisciplinesEvent;
 import com.cadernonline.event.UpdateCoursesEvent;
 import com.cadernonline.model.Course;
 import com.cadernonline.util.AuthUtil;
@@ -31,6 +34,7 @@ import com.parse.ParseUser;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.wordpress.android.util.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +54,15 @@ public class MainActivity extends BaseActivity {
     SwipeRefreshLayout vRefresh;
     @BindView(R.id.container)
     ViewPager vPager;
+    @BindView(R.id.institution_logo)
+    AppCompatImageView vInstitutionLogo;
     @BindView(R.id.menu)
     FloatingActionMenu vMenu;
 
     private List<Course> courses;
     private PagerAdapter adapter;
     private MenuItem authMenuItem;
+    private MenuItem searchMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +116,24 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         authMenuItem = menu.findItem(R.id.action_auth);
+        searchMenuItem = menu.findItem(R.id.action_search);
+
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                EventBus.getDefault().post(new FilterDisciplinesEvent(query));
+                ActivityUtils.hideKeyboard(MainActivity.this);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                EventBus.getDefault().post(new FilterDisciplinesEvent(newText));
+                return true;
+            }
+        });
+
         updateUI();
         return super.onCreateOptionsMenu(menu);
     }
@@ -169,6 +194,8 @@ public class MainActivity extends BaseActivity {
                 courses.addAll(objects);
                 adapter.notifyDataSetChanged();
                 vPager.setAdapter(adapter);
+                vTabLayout.setVisibility(courses.size() == 0 ? View.GONE : View.VISIBLE);
+                vInstitutionLogo.setVisibility(courses.size() == 0 ? View.VISIBLE : View.GONE);
             } else {
                 showError(e.getMessage());
             }
@@ -181,9 +208,15 @@ public class MainActivity extends BaseActivity {
             if(AuthUtil.isLoggedIn()){
                 vMenu.setVisibility(View.VISIBLE);
                 authMenuItem.setTitle(R.string.logout);
+                searchMenuItem.setVisible(true);
+                vTabLayout.setVisibility(courses.size() == 0 ? View.GONE : View.VISIBLE);
+                vInstitutionLogo.setVisibility(courses.size() == 0 ? View.VISIBLE : View.GONE);
             } else {
                 vMenu.setVisibility(View.GONE);
                 authMenuItem.setTitle(R.string.login);
+                searchMenuItem.setVisible(false);
+                vTabLayout.setVisibility(View.GONE);
+                vInstitutionLogo.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -7,8 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -18,12 +20,14 @@ import com.cadernonline.model.Annotation;
 import com.cadernonline.model.Course;
 import com.cadernonline.model.Discipline;
 import com.cadernonline.util.DbUtil;
+import com.cadernonline.util.StringUtil;
 import com.cadernonline.view.BaseActivity;
 import com.cadernonline.view.annotation.AnnotationActivity;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.wordpress.android.util.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +71,7 @@ public class DisciplineActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         adapter = new FastItemAdapter<>();
-        adapter.setHasStableIds(true);
+        adapter.setHasStableIds(false);
         adapter.withOnClickListener((v, adapter1, item, position) -> {
             AnnotationActivity.start(this, discipline, item.annotation);
             return true;
@@ -75,6 +79,11 @@ public class DisciplineActivity extends BaseActivity {
         adapter.withOnLongClickListener((v, adapter1, item, position) -> {
             showOptionsDialog(item.annotation);
             return true;
+        });
+        adapter.getItemFilter().withFilterPredicate((item, constraint) -> {
+            String query = StringUtil.getSlug(constraint.toString());
+            String subject = StringUtil.getSlug(item.annotation.getSubject());
+            return subject.startsWith(query);
         });
 
         vAnnotations.setHasFixedSize(true);
@@ -96,6 +105,28 @@ public class DisciplineActivity extends BaseActivity {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                ActivityUtils.hideKeyboard(DisciplineActivity.this);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
